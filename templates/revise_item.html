@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>eBiz Accounting System</title>
+		<link rel="stylesheet" type="text/css" href="/static/styles.css">
+	</head>
+	<body>
+		<h1>eBiz Accounting System</h1>
+		<form action="{{ url_for('index') }}">
+			<button>Return to main page</button>
+		</form>
+		<h2>Revise an Item</h2>
+		<form action="{{ url_for('save_revise_item') }}" method="POST"
+		class="save_revise_item">
+			<div >
+				<label>Name: </label><input name="name" value="ji"><br>
+				<label>Number: </label><input name="num"><br>
+				<label>Buy Single Cost: </label><input name="buySingleCost"><br>
+				<label>Received Number: </label><input name="receivedNum"><br>
+				<label>Sell Signle Price: </label><input name="sellSignlePrice"><br>
+				<label>Received Money: </label><input name="receivedMoney"><br>
+				<label>Other Cost: </label><input name="otherCost"><br>
+				<label>Other Profit: </label><input name="otherProfit"><br>
+				<label>Buyer: </label><input name="buyer"><br>
+				<label>If Drop: </label><input name="ifDrop"><br>
+				<label>Buy Place: </label><input name="buyPlace"><br>
+				<label>Pay Cards: </label><input name="payCards"><br>
+			</div>
+			<button>Submit</button>
+		</form>
+	</body>
+</html>

@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>eBiz Accounting System</title>
+		<link rel="stylesheet" type="text/css" href="/static/styles.css">
+	</head>
+	<body>
+		<h1>eBiz Accounting System</h1>
+		<form action="{{ url_for('index') }}">
+			<button>Return to main page</button>
+		</form>
+		<form action="{{ url_for('add_item') }}">
+		<button>Add a New Item</button>
+		</form>
+		<h2>All Purchased Items</h2>
+		<table border="1" id = "all_items_table">
+			<tr>
+				<th></th>
+				<th></th>
+				<th>ID</th>
+				<th>Date</th>
+				<th>name</th>
+				<th>num</th>
+				<th>buySingleCost</th>
+				<th>buyTotalCost</th>
+				<th>receivedNum</th>
+				<th>sellSignlePrice</th>
+				<th>sellTotalPrice</th>
+				<th>receivedMoney</th>
+				<th>otherCost</th>
+				<th>basicProfit</th>
+				<th>otherProfit</th>
+				<th>totalProfit</th>
+				<th>buyer</th>
+				<th>buyPlace</th>
+				<th>payCards</th>
+				<th>ifDrop</th>
+			</tr>
+			{% for x in all_items %}
+			<tr>
+				<!-- <td><form action="{{ url_for('revise_item') }}"
+				class="revise_item"><button id="revise-{{ x.ID }}-btn" 
+				value="{{ x.ID }}" name="revise">Revise</button></td> -->
+				<td><form action="{{ url_for('delete_item') }}" method="POST"
+				class="delete_item"><button id="delete-{{ x.ID }}-btn" 
+				value="{{ x.ID }}" name="delete">Delete</button></td>
+				<td>{{ x.ID }}</td>
+				<td>{{ x.date.month }}/{{ x.date.day }}/{{ x.date.year }}</td>
+				<td>{{ x.name }}</td>
+				<td>{{ x.num }}</td>
+				<td>{{ x.buySingleCost }}</td>
+				<td>{{ x.buyTotalCost }}</td>
+				<td>{{ x.receivedNum }}</td>
+				<td>{{ x.sellSignlePrice }}</td>
+				<td>{{ x.sellTotalPrice }}</td>
+				<td>{{ x.receivedMoney }}</td>
+				<td>{{ x.otherCost }}</td>
+				<td>{{ x.basicProfit }}</td>
+				<td>{{ x.otherProfit }}</td>
+				<td>{{ x.totalProfit }}</td>
+				<td>{{ x.buyer }}</td>
+				<td>{{ x.buyPlace }}</td>
+				<td>{{ x.payCards }}</td>
+				<td>{{ x.ifDrop }}</td>
+			</tr>
+			{% endfor %}
+		</table>
+	</body>
+</html>

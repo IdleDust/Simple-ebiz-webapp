@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>eBiz Accounting System</title>
+		<link rel="stylesheet" type="text/css" href="/static/styles.css">
+	</head>
+	<body>
+		<h1>eBiz Accounting System</h1>
+
+		<div id="show_all_items">
+		<form action="{{ url_for('show_all_items') }}">
+		<button>Show All Items</button>
+		</form>
+		</div>
+
+		<div id="add_item">
+		<form action="{{ url_for('add_item') }}">
+		<button>Add a New Item</button>
+		</form>
+		</div>
+
+		<div id="add_item">
+		<form action="{{ url_for('selected_items') }}" method="POST">
+			<label>Choose Time Range</label><br>
+
+			<label>From:</label><br>
+			<label>Month: </label><input value = "0" name="smonth">
+			<label>Day: </label><input value = "0" name="sday">
+			<label>Year: </label><input value = "0" name="syear"><br>
+
+			<label>To:</label><br>
+			<label>Month: </label><input name="emonth" value="{{ date.month }} ">
+			<label>Day: </label><input name="eday" value="{{ date.day }} ">
+			<label>Year: </label><input name="eyear" value="{{ date.year }} "><br>
+
+			<button>Submit</button>
+		</form>
+		<p>{{ saves }}</p>
+		</div>
+
+	</body>
+</html>

@@ -12,7 +12,7 @@ class Item(Model):
     ID = IntegerField();
     date = DateField();
     name = TextField();
-    number = IntegerField;
+    number = 0;
     buySingleCost = DoubleField();
     buyTotalCost = DoubleField();
     receivedNum = IntegerField();
@@ -165,8 +165,6 @@ def delete_item():
 def jump_revise_item():
     data = {};
     data.update(dict(request.form.items()));
-    print data['revise'];
-    print url_for('revise_item', ID=data['revise']);
     response = make_response(redirect(url_for('revise_item', ID=data['revise'])));
     # response.set_cookie('character', json.dumps(data));
     return response;
@@ -175,7 +173,6 @@ def jump_revise_item():
 @app.route('/revise_item')
 def revise_item(ID=-1):
     item = get_item_by_ID(ID);
-    print item;
     return render_template("revise_item.html", item=item);
 
 @app.route('/save_revise_item', methods=['POST'])

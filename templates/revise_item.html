@@ -13,18 +13,19 @@
 		<form action="{{ url_for('save_revise_item') }}" method="POST"
 		class="save_revise_item">
 			<div >
-				<label>Name: </label><input name="name" value="ji"><br>
-				<label>Number: </label><input name="num"><br>
-				<label>Buy Single Cost: </label><input name="buySingleCost"><br>
-				<label>Received Number: </label><input name="receivedNum"><br>
-				<label>Sell Signle Price: </label><input name="sellSignlePrice"><br>
-				<label>Received Money: </label><input name="receivedMoney"><br>
-				<label>Other Cost: </label><input name="otherCost"><br>
-				<label>Other Profit: </label><input name="otherProfit"><br>
-				<label>Buyer: </label><input name="buyer"><br>
-				<label>If Drop: </label><input name="ifDrop"><br>
-				<label>Buy Place: </label><input name="buyPlace"><br>
-				<label>Pay Cards: </label><input name="payCards"><br>
+				<label>ID: </label><input name="ID" value="{{ item.ID }}"><br>
+				<label>Name: </label><input name="name" value="{{ item.name }}"><br>
+				<label>Number: </label><input name="num" value="{{ item.number }}"><br>
+				<label>Buy Single Cost: </label><input name="buySingleCost" value="{{ item.buySingleCost }}"><br>
+				<label>Received Number: </label><input name="receivedNum" value="{{ item.receivedNum }}"><br>
+				<label>Sell Signle Price: </label><input name="sellSignlePrice" value="{{ item.sellSignlePrice }}"><br>
+				<label>Received Money: </label><input name="receivedMoney" value="{{ item.receivedMoney }}"><br>
+				<label>Other Cost: </label><input name="otherCost" value="{{ item.otherCost }}"><br>
+				<label>Other Profit: </label><input name="otherProfit" value="{{ item.otherProfit }}"><br>
+				<label>Buyer: </label><input name="buyer" value="{{ item.buyer }}"><br>
+				<label>If Drop: </label><input name="ifDrop" value="{{ item.ifDrop }}"><br>
+				<label>Buy Place: </label><input name="buyPlace" value="{{ item.buyPlace }}"><br>
+				<label>Pay Cards: </label><input name="payCards" value="{{ item.payCards }}"><br>
 			</div>
 			<button>Submit</button>
 		</form>

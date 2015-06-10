@@ -6,7 +6,6 @@
 	</head>
 	<body>
 		<h1>eBiz Accounting System</h1>
-
 		<div id="show_all_items">
 		<form action="{{ url_for('show_all_items') }}">
 		<button>Show All Items</button>
@@ -24,9 +23,9 @@
 			<label>Choose Time Range</label><br>
 
 			<label>From:</label><br>
-			<label>Month: </label><input value = "0" name="smonth">
-			<label>Day: </label><input value = "0" name="sday">
-			<label>Year: </label><input value = "0" name="syear"><br>
+			<label>Month: </label><input value = "1" name="smonth">
+			<label>Day: </label><input value = "1" name="sday">
+			<label>Year: </label><input value = "1" name="syear"><br>
 
 			<label>To:</label><br>
 			<label>Month: </label><input name="emonth" value="{{ date.month }} ">
@@ -35,7 +34,6 @@
 
 			<button>Submit</button>
 		</form>
-		<p>{{ saves }}</p>
 		</div>
 
 	</body>

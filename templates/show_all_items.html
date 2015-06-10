@@ -41,10 +41,10 @@
 				<!-- <td><button>Revise</button></td> -->
 				<td><form action="{{ url_for('jump_revise_item') }}" method="POST"
 				class="revise_item"><button id="revise-{{ x.ID }}-btn" 
-				value="{{ x.ID }}" name="revise">Revise</button></td>
+				value="{{ x.ID }}" name="revise">Revise</button></form></td>
 				<td><form action="{{ url_for('delete_item') }}" method="POST"
 				class="delete_item"><button id="delete-{{ x.ID }}-btn" 
-				value="{{ x.ID }}" name="delete">Delete</button></td>
+				value="{{ x.ID }}" name="delete">Delete</button></form></td>
 				<td>{{ x.ID }}</td>
 				<td>{{ x.date.month }}/{{ x.date.day }}/{{ x.date.year }}</td>
 				<td>{{ x.name }}</td>
@@ -54,7 +54,7 @@
 				<td>{{ x.receivedNum }}</td>
 				<td>{{ x.sellSignlePrice }}</td>
 				<td>{{ x.sellTotalPrice }}</td>
-				<td>{{ x.receivedMoney }}</td>
+				<td style="background-color:red">{{ x.receivedMoney }}</td>
 				<td>{{ x.otherCost }}</td>
 				<td>{{ x.basicProfit }}</td>
 				<td>{{ x.otherProfit }}</td>

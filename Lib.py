@@ -17,20 +17,3 @@ def toFloat(x):
 	except ValueError:
 		return 0;
 
-def toString(x):
-    return str(x);
-
-def printShit():
-    print 'shit';
-
-def printList(x):
-    for y in x:
-        print y;
-
-def printX(x):
-    print x;
-
-b = [];
-a=[];
-c = [];
-

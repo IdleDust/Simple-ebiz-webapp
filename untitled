@@ -1,3 +1,0 @@
-<td><form action="{{ url_for('revise_item') }}" method="POST"
-				class="revise_item"><button id="revise-{{ x.ID }}-btn" 
-				value="{{ x.ID }}" name="revise">Revise</button></td>

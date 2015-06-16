@@ -6,13 +6,13 @@
 	</head>
 	<body>
 		<h1>eBiz Accounting System</h1>
-		<form action="{{ url_for('index') }}">
+		<!-- <form action="{{ url_for('index') }}">
 			<button>Return to main page</button>
 		</form>
 		<form action="{{ url_for('add_item') }}">
 		<button>Add a New Item</button>
 		</form>
-		<h2>All Purchased Items</h2>
+		<h2>All Purchased Items</h2> -->
 		<table border="1" id = "all_items_table">
 			<tr>
 				<th></th>
@@ -41,9 +41,11 @@
 				<td><form action="{{ url_for('jump_revise_item') }}" method="POST"
 				class="revise_item"><button id="revise-{{ x.ID }}-btn" 
 				value="{{ x.ID }}" name="revise">Revise</button></form></td>
+
 				<td><form action="{{ url_for('delete_item') }}" method="POST"
 				class="delete_item"><button id="delete-{{ x.ID }}-btn" 
 				value="{{ x.ID }}" name="delete">Delete</button></form></td>
+				
 				<td>{{ x.ID }}</td>
 				<td>{{ x.date.month }}/{{ x.date.day }}/{{ x.date.year }}</td>
 				<td>{{ x.name }}</td>
@@ -65,5 +67,6 @@
 			</tr>
 			{% endfor %}
 		</table>
+		
 	</body>
 </html>

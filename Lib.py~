@@ -26,3 +26,6 @@ def printShit():
 def printList(x):
     for y in x:
         print y;
+
+def printX(x):
+    print x;

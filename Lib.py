@@ -19,3 +19,6 @@ def toFloat(x):
 
 def toString(x):
     return str(x);
+
+def printShit():
+    print 'shit';

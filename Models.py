@@ -11,7 +11,7 @@ class Item(Model):
     ID = IntegerField();
     date = DateField();
     name = TextField();
-    number = 0; #IntegerField(default=0);
+    number = IntegerField(default=0);
     buySingleCost = DoubleField();
     buyTotalCost = DoubleField();
     receivedNum = IntegerField();
@@ -84,9 +84,11 @@ def delete_item_by_ID(_id):
         entry.delete_instance();
     update_all_items();
 
-def add_new_item(_ID=0, _date=Lib.get_current_date(), _name="", _number=0, _buySingleCost=0, _buyTotalCost=0, _receivedNum=0, _sellSignlePrice=0, _sellTotalPrice = 0, _receivedMoney=0, _otherCost=0, _basicProfit=0, _otherProfit=0, _totalProfit=0, _buyer="virus", _buyPlace="newegg",\
- _payCards="",_ifDrop=False):
-    new_item = Item(ID=_ID, date=_date, name=_name, number =_number, buySingleCost=_buySingleCost,\
+def add_new_item(_ID=0, _date=Lib.get_current_date(), _name="", _number=0, _buySingleCost=0, _buyTotalCost=0, \
+    _receivedNum=0, _sellSignlePrice=0, _sellTotalPrice = 0, _receivedMoney=0, \
+    _otherCost=0, _basicProfit=0, _otherProfit=0, _totalProfit=0, _buyer="virus",\
+     _buyPlace="newegg", _payCards="",_ifDrop=False):
+    new_item = Item(ID=_ID, date=_date, name=_name, number=_number, buySingleCost=_buySingleCost,\
         buyTotalCost = _buyTotalCost, receivedNum=_receivedNum, \
         sellSignlePrice=_sellSignlePrice, sellTotalPrice=_sellTotalPrice,\
         receivedMoney=_receivedMoney, otherCost=_otherCost,\
@@ -99,5 +101,6 @@ def add_new_item(_ID=0, _date=Lib.get_current_date(), _name="", _number=0, _buyS
     new_item.save();
     update_all_items();
 
-
+if __name__ == '__main__':
+    pass;
 

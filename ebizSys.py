@@ -49,7 +49,7 @@ def get_saved_data():
 def save_new_item():
     data = {};
     data.update(dict(request.form.items()));
-    Models.add_new_item(_name=data['name'], _number=data['num'], \
+    Models.add_new_item(_name=data['name'], _number=Lib.toInt(data['num']), \
         _buySingleCost=Lib.toFloat(data['buySingleCost']),\
         _sellSignlePrice=Lib.toFloat(data['sellSignlePrice']),\
          _otherCost=Lib.toFloat(data['otherCost']),\

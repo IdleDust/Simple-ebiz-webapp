@@ -22,3 +22,7 @@ def toString(x):
 
 def printShit():
     print 'shit';
+
+def printList(x):
+    for y in x:
+        print y;

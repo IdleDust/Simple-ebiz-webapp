@@ -200,5 +200,6 @@ def save_revise_item():
     # response.set_cookie('character', json.dumps(data));
     return response;
 
-app.run(debug=True, host='127.0.0.1', port=8000);
+if __name__ == '__main__':
+    app.run(debug=True, host='127.0.0.1', port=8000);
         

@@ -19,3 +19,10 @@ def toFloat(x):
 
 def toString(x):
     return str(x);
+
+def printShit():
+    print 'shit';
+
+def printList(x):
+    for y in x:
+        print y;

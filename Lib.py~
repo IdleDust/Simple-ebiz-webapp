@@ -31,4 +31,5 @@ def printX(x):
     print x;
 
 b = [];
+a=[];
 

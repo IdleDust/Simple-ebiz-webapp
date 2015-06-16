@@ -29,3 +29,5 @@ def printList(x):
 
 def printX(x):
     print x;
+
+a = [];

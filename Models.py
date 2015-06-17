@@ -74,7 +74,7 @@ def delete_all_items():
 
 def delete_item_by_ID(_id):
     global deleted_items;
-    entries = Item.select().where(Item.ID == _id);
+    entries = Item.select().where(Item.uID == _id);
     for entry in entries:
         deleted_items.append(entry);
         entry.delete_instance();

@@ -49,13 +49,13 @@ def get_saved_data():
 def save_new_item():
     data = {};
     data.update(dict(request.form.items()));
-    Models.add_new_item(_name=data['name'], _number=Lib.toInt(data['num']), \
-        _buySingleCost=Lib.toFloat(data['buySingleCost']),\
-        _sellSignlePrice=Lib.toFloat(data['sellSignlePrice']),\
-         _otherCost=Lib.toFloat(data['otherCost']),\
-         _otherProfit=Lib.toFloat(data['otherProfit']),\
-          _buyer=data['buyer'], _buyPlace=data['buyPlace'],\
-        _payCards=data['payCards']);
+    Models.add_new_item(name=data['name'], number=Lib.toInt(data['num']), \
+        buySingleCost=Lib.toFloat(data['buySingleCost']),\
+        sellSignlePrice=Lib.toFloat(data['sellSignlePrice']),\
+         otherCost=Lib.toFloat(data['otherCost']),\
+         otherProfit=Lib.toFloat(data['otherProfit']),\
+          buyer=data['buyer'], buyPlace=data['buyPlace'],\
+        payCards=data['payCards']);
     response = make_response(redirect(url_for('show_all_items')));
     # response.set_cookie('character', json.dumps(data));
     return response;
@@ -73,23 +73,23 @@ def delete_item():
 def jump_revise_item():
     data = {};
     data.update(dict(request.form.items()));
-    response = make_response(redirect(url_for('revise_item', ID=data['revise'])));
+    response = make_response(redirect(url_for('revise_item', uID=data['revise'])));
     # response.set_cookie('character', json.dumps(data));
     return response;
 
-@app.route('/revise_item/<int:ID>')
+@app.route('/revise_item/<int:uID>')
 @app.route('/revise_item')
-def revise_item(ID=-1):
-    item = Models.get_item_by_ID(ID);
+def revise_item(uID=-1):
+    item = Models.get_item_by_ID(uID);
     return render_template("revise_item.html", item=item);
 
 @app.route('/save_revise_item', methods=['POST'])
 def save_revise_item():
     data = {};
     data.update(dict(request.form.items()));
-    ID = Lib.toInt(data['ID']);
+    uID = Lib.toInt(data['uID']);
     for x in Models.all_items:
-        if x.ID == ID:
+        if x.uID == uID:
             x.name = data['name'];
             x.number = Lib.toInt(data['num']);
             x.buySingleCost = Lib.toFloat(data['buySingleCost']);

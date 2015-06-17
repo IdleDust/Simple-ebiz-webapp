@@ -39,14 +39,14 @@
 			{% for x in all_items %}
 			<tr>
 				<td><form action="{{ url_for('jump_revise_item') }}" method="POST"
-				class="revise_item"><button id="revise-{{ x.ID }}-btn" 
-				value="{{ x.ID }}" name="revise">Revise</button></form></td>
+				class="revise_item"><button id="revise-{{ x.uID }}-btn" 
+				value="{{ x.uID }}" name="revise">Revise</button></form></td>
 
 				<td><form action="{{ url_for('delete_item') }}" method="POST"
-				class="delete_item"><button id="delete-{{ x.ID }}-btn" 
-				value="{{ x.ID }}" name="delete">Delete</button></form></td>
+				class="delete_item"><button id="delete-{{ x.uID }}-btn" 
+				value="{{ x.uID }}" name="delete">Delete</button></form></td>
 				
-				<td>{{ x.ID }}</td>
+				<td>{{ x.uID }}</td>
 				<td>{{ x.date.month }}/{{ x.date.day }}/{{ x.date.year }}</td>
 				<td>{{ x.name }}</td>
 				<td>{{ x.number }}</td>

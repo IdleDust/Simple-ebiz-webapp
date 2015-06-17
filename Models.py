@@ -1,6 +1,5 @@
 import datetime
 from peewee import *
-
 import Lib
 
 db = SqliteDatabase('all_purchased_items.db');
@@ -8,10 +7,10 @@ all_items = None;
 deleted_items = [];
 
 class Item(Model):
-    ID = IntegerField();
+    uID = IntegerField();
     date = DateField();
+    number = IntegerField();
     name = TextField();
-    number = IntegerField(default=0);
     buySingleCost = DoubleField();
     buyTotalCost = DoubleField();
     receivedNum = IntegerField();
@@ -30,11 +29,12 @@ class Item(Model):
     class Meta:
         database = db;
 
+
 def init_database():
     global all_items;
     global db;
     global deleted_items;
-    # db = SqliteDatabase('all_purchased_items.db');
+    db = SqliteDatabase('all_purchased_items.db');
     deleted_items = [];
     db.connect();
     db.create_tables([Item], safe=True);
@@ -45,10 +45,10 @@ def update_all_items():
     all_items = Item.select();
 
 def update_ID(_item):
-    _item.ID = 0;
-    entries = Item.select().order_by(Item.ID.desc());
-    for entry in entries:
-        _item.ID = entry.ID + 1;
+    _item.uID = 0;
+    a = Item.select().order_by(Item.uID.desc());
+    for x in a:
+        _item.uID = x.uID + 1;
         break;
 
 def update_cost_and_profit(_item):
@@ -65,12 +65,8 @@ def get_items_time_range(_start=datetime.date(1,1,1), _end=Lib.get_current_date(
 
 def get_item_by_ID(_ID):
     for x in Item.select():
-        if x.ID == _ID:
+        if x.uID == _ID:
             return x;
-
-def input_a_new_item():
-    name = raw_input('Input the name: ').strip();
-    add_new_item(_name = name, _date=Lib.get_current_date());
 
 def delete_all_items():
     for x in Item.select():
@@ -84,23 +80,36 @@ def delete_item_by_ID(_id):
         entry.delete_instance();
     update_all_items();
 
-def add_new_item(_ID=0, _date=Lib.get_current_date(), _name="", _number=0, _buySingleCost=0, _buyTotalCost=0, \
-    _receivedNum=0, _sellSignlePrice=0, _sellTotalPrice = 0, _receivedMoney=0, \
-    _otherCost=0, _basicProfit=0, _otherProfit=0, _totalProfit=0, _buyer="virus",\
-     _buyPlace="newegg", _payCards="",_ifDrop=False):
-    new_item = Item(ID=_ID, date=_date, name=_name, number=_number, buySingleCost=_buySingleCost,\
-        buyTotalCost = _buyTotalCost, receivedNum=_receivedNum, \
-        sellSignlePrice=_sellSignlePrice, sellTotalPrice=_sellTotalPrice,\
-        receivedMoney=_receivedMoney, otherCost=_otherCost,\
-        basicProfit=_basicProfit, otherProfit=_otherProfit,\
-        totalProfit=_totalProfit, buyer=_buyer, buyPlace=_buyPlace, payCards=_payCards,\
-        ifDrop=_ifDrop);
+def add_new_item(ID=0, date=Lib.get_current_date(), name="", number=0, buySingleCost=0, buyTotalCost=0, \
+    receivedNum=0, sellSignlePrice=0, sellTotalPrice = 0, receivedMoney=0, \
+    otherCost=0, basicProfit=0, otherProfit=0, totalProfit=0, buyer="virus",\
+     buyPlace="newegg", payCards="", ifDrop=False):
+    new_item = Item(uID=ID, date=date, name=name, number=number, buySingleCost=buySingleCost,\
+        buyTotalCost = buyTotalCost, \
+        sellSignlePrice=sellSignlePrice, sellTotalPrice=sellTotalPrice,\
+        receivedMoney=receivedMoney, receivedNum=receivedNum, otherCost=otherCost,\
+        basicProfit=basicProfit, otherProfit=otherProfit,\
+        totalProfit=totalProfit, buyer=buyer, buyPlace=buyPlace, payCards=payCards,\
+        ifDrop=ifDrop);
 
     update_cost_and_profit(new_item);
     update_ID(new_item);
     new_item.save();
     update_all_items();
 
+def input_new_item():
+    n = int(raw_input('Input a number: '));
+    p1 = int(raw_input('Input buy price: '));
+    p2 = int(raw_input('Input sell price: '));
+    add_new_item( buySingleCost=p1, sellSignlePrice=p2);
+
+def print_all_items():
+    all_items = Item.select();
+    for x in all_items:
+        print x.uID, x.buySingleCost, x.sellSignlePrice;
+
 if __name__ == '__main__':
-    pass;
+    init_database();
+    input_new_item();
+    print_all_items();
 

@@ -1,4 +1,3 @@
-
 import datetime
 from peewee import *
 from flask import (Flask, render_template, redirect, 
@@ -12,26 +11,26 @@ app = Flask(__name__);
 
 
 @app.route('/')
-def index(saves=""):
-    return render_template("index.html", saves=saves, date=Lib.get_current_date());
+def index(saves="", date=Lib.get_current_date(), all_items=Models.Item.select()):
+    return render_template("index.html", saves=saves, date=date, all_items=Models.all_items);
 
 @app.route('/selected_items', methods=['POST'])
-def selected_items():
+def selected_items(saves=""):
     data = {};
+    #data is <select> date range
     data.update(dict(request.form.items()));
     print (data)
-    # date1 = datetime.date(Lib.toInt(data['syear']), Lib.toInt(data['smonth'])\
-    #     , Lib.toInt(data['sday']));
-    # date2 = datetime.date(Lib.toInt(data['eyear']), Lib.toInt(data['emonth'])\
-    #     , Lib.toInt(data['eday']));
-    # ans = get_items_time_range(date1, date2);
-    response = make_response(redirect(url_for('index')));
+    st = datetime.date(Lib.toInt(data['syear']), Lib.toInt(data['smonth']), Lib.toInt(data['sday']))
+    ed = datetime.date(Lib.toInt(data['eyear']), Lib.toInt(data['emonth']), Lib.toInt(data['eday']))
+    
+    selected_items=Models.get_items_time_range(st, ed)
+    return render_template("index.html", date=Lib.get_current_date(),all_items=selected_items)
+    #response = make_response(redirect(url_for('index')));, saves=saves, date=Lib.get_cur
     # response.set_cookie('character', json.dumps(data));
-    return response;
+    #return response;
 
 @app.route('/show_all_items')
 def show_all_items():
-    print("shit");
     return render_template("show_all_items.html", all_items=Models.all_items);
 
 @app.route('/add_item')

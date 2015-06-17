@@ -58,6 +58,7 @@ def update_cost_and_profit(_item):
     _item.totalProfit = _item.basicProfit + _item.otherProfit - _item.otherCost;
 
 def get_items_time_range(_start=datetime.date(1,1,1), _end=Lib.get_current_date()):
+# def get_items_time_range(_start=Lib.get_current_date(), _end=Lib.get_current_date()):
     entries = Item.select().order_by(Item.date);
     ans = entries.where(Item.date >= _start);
     ans = ans.where(Item.date <= _end);
@@ -106,10 +107,10 @@ def input_new_item():
 def print_all_items():
     all_items = Item.select();
     for x in all_items:
-        print x.uID, x.buySingleCost, x.sellSignlePrice;
+        print (x.uID, x.buySingleCost, x.sellSignlePrice);
 
-if __name__ == '__main__':
-    init_database();
-    input_new_item();
-    print_all_items();
+# if __name__ == '__main__':
+#     init_database();
+#     input_new_item();
+#     print_all_items();
 

@@ -29,10 +29,6 @@ def selected_items(saves=""):
     # response.set_cookie('character', json.dumps(data));
     #return response;
 
-@app.route('/show_all_items')
-def show_all_items():
-    return render_template("show_all_items.html", all_items=Models.all_items);
-
 @app.route('/add_item')
 def add_item():
     return render_template("add_item.html", all_items=Models.all_items);
@@ -55,7 +51,7 @@ def save_new_item():
          otherProfit=Lib.toFloat(data['otherProfit']),\
           buyer=data['buyer'], buyPlace=data['buyPlace'],\
         payCards=data['payCards']);
-    response = make_response(redirect(url_for('show_all_items')));
+    response = make_response(redirect(url_for('index')));
     # response.set_cookie('character', json.dumps(data));
     return response;
 
@@ -64,7 +60,7 @@ def delete_item():
     data = {};
     data.update(dict(request.form.items()));
     Models.delete_item_by_ID(Lib.toInt(data['delete']));
-    response = make_response(redirect(url_for('show_all_items')));
+    response = make_response(redirect(url_for('index')));
     # response.set_cookie('character', json.dumps(data));
     return response;
 
@@ -103,7 +99,7 @@ def save_revise_item():
             x.payCards = data['payCards'];
             Models.update_cost_and_profit(x);
 
-    response = make_response(redirect(url_for('show_all_items')));
+    response = make_response(redirect(url_for('index')));
     # response.set_cookie('character', json.dumps(data));
     return response;
 

@@ -92,7 +92,6 @@ def add_new_item(ID=0, date=Lib.get_current_date(), name="", number=0, buySingle
         basicProfit=basicProfit, otherProfit=otherProfit,\
         totalProfit=totalProfit, buyer=buyer, buyPlace=buyPlace, payCards=payCards,\
         ifDrop=ifDrop);
-
     update_cost_and_profit(new_item);
     update_ID(new_item);
     new_item.save();

@@ -54,7 +54,10 @@ table, th, td {
 th, td {
     padding: 3px;
 }
-th {
+
+th{
+	margin: 2px 0px;
+	text-align: left;
 	font-style: bold;
 }
 caption{

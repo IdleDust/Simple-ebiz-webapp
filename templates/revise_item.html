@@ -3,6 +3,8 @@
 	<head>
 		<title>eBiz Accounting System</title>
 		<link rel="stylesheet" type="text/css" href="/static/styles.css">
+		<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+		<script src="/static/ebizSys.js"></script>
 	</head>
 	<body>
 		<h1>eBiz Accounting System</h1>
@@ -13,7 +15,8 @@
 		<form action="{{ url_for('save_revise_item') }}" method="POST"
 		class="save_revise_item">
 			<div >
-				<label>ID: </label><input name="uID" value="{{ item.uID }}"><br>
+				<label>ID: </label><input name="uID" value="{{ item.uID }}" readonly="True"><br>
+				<label>Date: </label><input name="date" value="{{ item.date }}"><br>
 				<label>Name: </label><input name="name" value="{{ item.name }}"><br>
 				<label>Number: </label><input name="num" value="{{ item.number }}"><br>
 				<label>Buy Single Cost: </label><input name="buySingleCost" value="{{ item.buySingleCost }}"><br>
@@ -27,7 +30,7 @@
 				<label>Buy Place: </label><input name="buyPlace" value="{{ item.buyPlace }}"><br>
 				<label>Pay Cards: </label><input name="payCards" value="{{ item.payCards }}"><br>
 			</div>
-			<input type="submit" class="submit_button" value="Submit">
+			<input id="revise_submit" type="submit" class="submit_button" value="Submit">
 		</form>
 	</body>
 </html>

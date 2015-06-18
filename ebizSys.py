@@ -19,7 +19,7 @@ def index(saves="", date=Lib.get_current_date(), all_items=Models.Item.select(),
 @app.route('/', methods=['POST'])
 def selected_items(saves=""):
     data = {};
-    #data is <select> date range
+    # data is <select> date range
     data.update(dict(request.form.items()));
     print("DATAAAAAAAAAAAAAAAAAAAAA\n\n\n\n\n")
     print (data)
@@ -28,9 +28,9 @@ def selected_items(saves=""):
     
     selected_items=Models.get_items_time_range(st, ed)
     return render_template("index.html", date=Lib.get_current_date(),all_items=selected_items)
-    #response = make_response(redirect(url_for('index')));, saves=saves, date=Lib.get_cur
+    # response = make_response(redirect(url_for('index')));, saves=saves, date=Lib.get_cur
     # response.set_cookie('character', json.dumps(data));
-    #return response;
+    # return response;
 
 @app.route('/add_item')
 def add_item():
@@ -79,6 +79,8 @@ def jump_revise_item():
 @app.route('/revise_item')
 def revise_item(uID=-1):
     item = Models.get_item_by_ID(uID);
+    ######################################testing#######
+    # item.print_item()
     return render_template("revise_item.html", item=item);
 
 @app.route('/save_revise_item', methods=['POST'])
@@ -89,6 +91,7 @@ def save_revise_item():
     for x in Models.all_items:
         if x.uID == uID:
             x.name = data['name'];
+            x.date = Lib.str_to_date(data['date']);
             x.number = Lib.toInt(data['num']);
             x.buySingleCost = Lib.toFloat(data['buySingleCost']);
             x.receivedNum = Lib.toInt(data['receivedNum']);
@@ -101,6 +104,9 @@ def save_revise_item():
             x.buyPlace = data['buyPlace'];
             x.payCards = data['payCards'];
             Models.update_cost_and_profit(x);
+            x.save();
+
+
 
     response = make_response(redirect(url_for('index')));
     # response.set_cookie('character', json.dumps(data));

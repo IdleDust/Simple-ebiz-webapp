@@ -5,4 +5,16 @@ $(document).ready(function(){
 			event.preventDefault();
 		}
 	});
+
+	$("#revise_submit").click(function(event){
+		var chk = confirm("Are you sure?")
+		if (chk == false) {
+			event.preventDefault();
+		}
+	});
+
+
+
+
+
 });

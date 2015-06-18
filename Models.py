@@ -29,6 +29,22 @@ class Item(Model):
     class Meta:
         database = db;
 
+    def print_item(self):
+        info = dict()
+        info['uID'] = self.uID
+        info['date'] = self.date
+        info['number'] = self.number
+        info['name'] = self.name
+        info['buySingleCost'] = self.buySingleCost
+        info['buyTotalCost'] = self.buyTotalCost
+        info['receivedNum'] = self.receivedNum
+        info['sellSignlePrice'] = self.sellSignlePrice
+        info['sellTotalPrice'] = self.sellTotalPrice
+        info['receivedMoney'] = self.receivedMoney
+        info['otherCost'] = self.otherCost
+        info['basicProfit'] = self.basicProfit
+        print(info.items())
+
 
 def init_database():
     global all_items;

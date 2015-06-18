@@ -7,7 +7,7 @@
 	<body>
 		<h1>eBiz Accounting System</h1>
 		<form action="{{ url_for('index') }}">
-			<button>Return to main page</button>
+			<input class="retrn_to_home" type="submit" value="Return to Main Page">
 		</form>
 		<h2>Input a New Item</h2>
 		<form action="{{ url_for('save_new_item') }}" method="POST"
@@ -23,7 +23,7 @@
 				<label>Buy Place: </label><input name="buyPlace"><br>
 				<label>Pay Cards: </label><input name="payCards"><br>
 			</div>
-			<button>ADD</button>
+			<input class="submit_button" type="submit" value="Add ! " class="add_button">
 		</form>
 	</body>
 </html>

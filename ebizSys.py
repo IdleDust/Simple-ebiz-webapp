@@ -11,17 +11,20 @@ app = Flask(__name__);
 
 
 @app.route('/')
-def index(saves="", date=Lib.get_current_date(), all_items=Models.Item.select()):
-    return render_template("index.html", saves=saves, date=date, all_items=Models.all_items);
+def index(saves="", date=Lib.get_current_date(), all_items=Models.Item.select(),\
+    st_date=Lib.get_current_date(), ed_date=Lib.get_current_date()):
+    return render_template("index.html", saves=saves, date=date, \
+        all_items=Models.all_items, st_date=st_date, ed_date=ed_date);
 
-@app.route('/selected_items', methods=['POST'])
+@app.route('/', methods=['POST'])
 def selected_items(saves=""):
     data = {};
     #data is <select> date range
     data.update(dict(request.form.items()));
+    print("DATAAAAAAAAAAAAAAAAAAAAA\n\n\n\n\n")
     print (data)
-    st = datetime.date(Lib.toInt(data['syear']), Lib.toInt(data['smonth']), Lib.toInt(data['sday']))
-    ed = datetime.date(Lib.toInt(data['eyear']), Lib.toInt(data['emonth']), Lib.toInt(data['eday']))
+    st = data['start_date']
+    ed = data['end_date']
     
     selected_items=Models.get_items_time_range(st, ed)
     return render_template("index.html", date=Lib.get_current_date(),all_items=selected_items)

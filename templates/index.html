@@ -6,32 +6,28 @@
 	</head>
 	<body>
 		<h1>eBiz Accounting System</h1>
-		<div id="add_item">
-			<form action="{{ url_for('add_item') }}">
-				<input type='submit' value='Add a New Item'>
-			</form>
-		</div>
 
-		<div id="add_item">
+		<form action="{{url_for('index')}}" method="get">
+				<input type="submit" class="show_all_btn" value="Show All Items">
+		</form>
+
+		<div id="show_all_item">
 			<form action="{{ url_for('selected_items') }}" method="POST">
-				<label>Choose Time Range</label><br>
-
-				<label>From:</label><br>
-				<label>Month: </label><input value = "1" name="smonth">
-				<label>Day: </label><input value = "1" name="sday">
-				<label>Year: </label><input value = "1" name="syear"><br>
-
-				<label>To:</label><br>
-				<label>Month: </label><input name="emonth" value="{{ date.month }} ">
-				<label>Day: </label><input name="eday" value="{{ date.day }} ">
-				<label>Year: </label><input name="eyear" value="{{ date.year }} "><br>
-
-				<input type="submit" value="Submit">
+				<br><label>Select Date Range:</label><br>
+				From: <input type="date" name="start_date" value="{{st_date}}">
+				To: <input type="date" name="end_date" value="{{ed_date}}">
+				<input class="submit_button" type="submit" value="Submit">
 			</form>
+			
 		</div>
 		<div id="show_items">
-			<h2>All Purchased Items</h2>
+			<div id="add_item">
+				<form action="{{ url_for('add_item') }}">
+					<input class="add_button" type='submit' value='Add a New Item'>
+				</form>
+			</div>
 			<table border="1" id = "all_items_table">
+				<caption>All Purchased Items</caption>
 				<tr>
 					<th></th>
 					<th></th>
@@ -56,12 +52,11 @@
 				</tr>
 				{% for x in all_items %}
 				<tr>
-					<td><form action="{{ url_for('jump_revise_item') }}" method="POST"
-					class="revise_item"><button id="revise-{{ x.uID }}-btn" 
+					<td><form action="{{ url_for('jump_revise_item') }}" method="POST"><button class="revise_item" id="revise-{{ x.uID }}-btn" 
 					value="{{ x.uID }}" name="revise">Revise</button></form></td>
 
 					<td><form action="{{ url_for('delete_item') }}" method="POST"
-					class="delete_item"><button id="delete-{{ x.uID }}-btn" 
+					><button class="delete_item" id="delete-{{ x.uID }}-btn" 
 					value="{{ x.uID }}" name="delete">Delete</button></form></td>
 					
 					<td>{{ x.uID }}</td>

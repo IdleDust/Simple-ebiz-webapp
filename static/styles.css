@@ -1,3 +1,6 @@
+body {
+	background-color: #E0F0FF;
+}
 
 h1{
 	color: purple;
@@ -7,4 +10,56 @@ h1{
 h2{
 	color: red;
 	/*text-align: center;*/
+}
+.show_all_btn {
+	background-color:#00B800;
+	border-color: #78859F;
+	border-style: solid;
+	color:#FFFFFF;
+	display: inline;
+	font-weight: bold;
+	padding: 3px;
+	margin:1px;
+
+}
+
+.add_button,.submit_button,.retrn_to_home{
+	background-color:#234786;
+	border-color: #78859F;
+	border-style: solid;
+	color:#FFFFFF;
+	display: inline;
+	font-weight: bold;
+	padding: 3px;
+	margin:1px;
+}
+
+.revise_item, .delete_item{
+	background-color: #ADD6FF;
+	color:white;
+	border-color:white;
+}
+
+#add_item{
+	margin-top:30px;
+	margin-bottom: 5px;
+}
+
+
+/**********************All purchased Items table******************/
+table, th, td {
+    border: 1.2px solid black;
+    border-collapse: collapse;
+}
+th, td {
+    padding: 3px;
+}
+th {
+	font-style: bold;
+}
+caption{
+	text-align: left;
+	font-size:20;
+	margin:5px 0px;
+	font-weight:bold;
 }

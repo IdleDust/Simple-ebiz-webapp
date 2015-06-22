@@ -8,33 +8,10 @@
 	</head>
 	<body>
 		<h1>eBiz Accounting System</h1>
-
-		<form action="{{url_for('index')}}" method="get">
-				<input type="submit" class="show_all_btn" value="Show All Items">
-		</form>
-		<form action="{{url_for('show_deleted_item')}}" method="get">
-				<input type="submit" class="show_deleted_btn" value="Show Deleted Items">
-		</form>
-
-		<div id="select_time_range">
-			<form action="{{ url_for('selected_items') }}" method="POST">
-				<br><label>Select Date Range:</label><br>
-				From: <input type="date" name="start_date" value="{{st_date}}">
-				To: <input type="date" name="end_date" value="{{ed_date}}">
-				<input class="submit_button" type="submit" value="Submit">
-			</form>
-			
-		</div>
-		<div id="show_items">
-			<div id="add_item">
-				<form action="{{ url_for('add_item') }}">
-					<input class="add_button" type='submit' value='Add a New Item'>
-				</form>
-			</div>
-			<table border="1" id = "all_items_table">
-				<caption>All Purchased Items</caption>
+		<div id="show_deleted_items">
+			<table border="1" id = "all_deleted_items_table">
+				<caption>All Deleted Items</caption>
 				<tr>
-					<th></th>
 					<th></th>
 					<th>ID</th>
 					<th>Date</th>
@@ -57,13 +34,9 @@
 				</tr>
 				{% for x in all_items %}
 				<tr>
-					<td><form action="{{ url_for('jump_revise_item') }}" method="POST"><button class="revise_item" id="revise-{{ x.uID }}-btn" 
-					value="{{ x.uID }}" name="revise">Revise</button></form></td>
+					<td><form action="#" method="POST"><button class="recover_item" id="recover-{{ x.uID }}-btn" 
+					value="{{ x.uID }}" name="recover">Recover</button></form></td>
 
-					<td><form action="{{ url_for('delete_item') }}" method="POST"
-					><button class="delete_item" id="delete-{{ x.uID }}-btn" 
-					value="{{ x.uID }} " name="delete">Delete</button></form></td>
-					
 					<td>{{ x.uID }}</td>
 					<td>{{ x.date.month }}/{{ x.date.day }}/{{ x.date.year }}</td>
 					<td>{{ x.name }}</td>

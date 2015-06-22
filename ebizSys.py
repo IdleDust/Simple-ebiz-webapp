@@ -21,8 +21,6 @@ def selected_items(saves=""):
     data = {};
     # data is <select> date range
     data.update(dict(request.form.items()));
-    print("DATAAAAAAAAAAAAAAAAAAAAA\n\n\n\n\n")
-    print (data)
     st = data['start_date']
     ed = data['end_date']
     
@@ -66,6 +64,13 @@ def delete_item():
     response = make_response(redirect(url_for('index')));
     # response.set_cookie('character', json.dumps(data));
     return response;
+
+@app.route('/show_deleted_item', methods=['get'])
+def show_deleted_item():
+    deleted_items = Models.deleted_items;
+    return render_template("deletedItems.html", all_items=deleted_items);
+
+
 
 @app.route('/jump_revise_item', methods=['POST'])
 def jump_revise_item():

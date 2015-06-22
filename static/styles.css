@@ -11,7 +11,7 @@ h2{
 	color: red;
 	/*text-align: center;*/
 }
-.show_all_btn {
+.show_all_btn, .show_deleted_btn {
 	background-color:#00B800;
 	border-color: #78859F;
 	border-style: solid;
@@ -21,6 +21,10 @@ h2{
 	padding: 3px;
 	margin:1px;
 
+}
+
+.show_deleted_btn {
+	background-color: grey;
 }
 
 .add_button,.submit_button,.retrn_to_home{

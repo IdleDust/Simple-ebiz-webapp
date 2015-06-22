@@ -23,3 +23,10 @@ def toFloat(x):
 	except ValueError:
 		return 0;
 
+def get_cur_time_stamp():
+	return toInt(time.time()*100);
+
+def get_unique_ID():
+	return get_cur_time_stamp();
+
+	

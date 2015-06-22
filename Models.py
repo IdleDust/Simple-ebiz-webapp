@@ -77,6 +77,7 @@ def init_database():
     db.connect();
     db.create_tables([Item, deletedItem], safe=True);
     all_items = Item.select();
+    deleted_items = deletedItem.select();
 
 def update_all_items():
     global all_items;
@@ -85,11 +86,7 @@ def update_all_items():
     deleted_items = deletedItem.select();
 
 def update_ID(_item):
-    _item.uID = 0;
-    a = Item.select().order_by(Item.uID.desc());
-    for x in a:
-        _item.uID = x.uID + 1;
-        break;
+    _item.uID = Lib.get_unique_ID();
 
 def update_cost_and_profit(_item):
     _item.buyTotalCost = _item.buySingleCost * _item.number;
@@ -97,7 +94,7 @@ def update_cost_and_profit(_item):
     _item.basicProfit = _item.sellTotalPrice - _item.buyTotalCost;
     _item.totalProfit = _item.basicProfit + _item.otherProfit - _item.otherCost;
 
-def add_new_item(ID=0, date=Lib.get_current_date(), name="", number=0, buySingleCost=0, buyTotalCost=0, \
+def add_new_item(ID=Lib.get_unique_ID(), date=Lib.get_current_date(), name="", number=0, buySingleCost=0, buyTotalCost=0, \
     receivedNum=0, sellSignlePrice=0, sellTotalPrice = 0, receivedMoney=0, \
     otherCost=0, basicProfit=0, otherProfit=0, totalProfit=0, buyer="virus",\
      buyPlace="newegg", payCards="", ifDrop=False):
@@ -125,9 +122,14 @@ def get_item_by_ID(_ID):
         if x.uID == _ID:
             return x;
 
-def delete_all_items():
+def delete_all_saved_items():
     for x in Item.select():
-        delete_item_by_ID(x.uID);
+        x.delete_instance();
+
+def delete_all_deleted_items():
+    for x in deletedItem.select():
+        x.delete_instance();
+
 
 def delete_item_by_ID(_id):
     entries = Item.select().where(Item.uID == _id);
@@ -151,8 +153,6 @@ def add_deleted_item(_id):
             ifDrop=newitem.ifDrop);
         update_cost_and_profit(new_deleted_item);
         new_deleted_item.save();
-
-
 
 
 

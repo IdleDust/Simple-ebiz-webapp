@@ -82,7 +82,7 @@ def jump_revise_item():
 
 @app.route('/revise_item/<int:uID>')
 @app.route('/revise_item')
-def revise_item(uID=-1):
+def revise_item(uID):
     item = Models.get_item_by_ID(uID);
     ######################################testing#######
     # item.print_item()
@@ -120,4 +120,5 @@ def save_revise_item():
 if __name__ == '__main__':
     Models.init_database();
     app.run(debug=True, host='127.0.0.1', port=8000);
+
         

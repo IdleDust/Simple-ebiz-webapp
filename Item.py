@@ -1,10 +1,10 @@
 import datetime
 from peewee import *
 import Lib
+from MyDatabase import *
+import DeleteItem
 
-db = SqliteDatabase('all_purchased_items.db');
-all_items = None;
-deleted_items = None;
+all_items = [];
 
 class Item(Model):
     uID = IntegerField(unique=True);
@@ -45,48 +45,11 @@ class Item(Model):
         info['basicProfit'] = self.basicProfit
         print(info.items())
 
-class deletedItem(Model):
-    uID = IntegerField(unique=True);
-    date = DateField();
-    number = IntegerField();
-    name = TextField();
-    buySingleCost = DoubleField();
-    buyTotalCost = DoubleField();
-    receivedNum = IntegerField();
-    sellSignlePrice = DoubleField();
-    sellTotalPrice = DoubleField();
-    receivedMoney = DoubleField();
-    otherCost = DoubleField();
-    basicProfit = DoubleField();
-    otherProfit = DoubleField();
-    totalProfit = DoubleField();
-    buyer = CharField(max_length=120);
-    buyPlace = CharField(max_length=120);
-    payCards = TextField();
-    ifDrop = BooleanField();
-
-    class Meta:
-        database = db;
-
-
-def init_database():
-    global all_items;
-    global db;
-    global deleted_items;
-    db = SqliteDatabase('all_purchased_items.db');
-    db.connect();
-    db.create_tables([Item, deletedItem], safe=True);
-    all_items = Item.select();
-    deleted_items = deletedItem.select();
 
 def update_all_items():
     global all_items;
-    global deleted_items;
     all_items = Item.select();
-    deleted_items = deletedItem.select();
-
-def update_ID(_item):
-    _item.uID = Lib.get_unique_ID();
+    DeleteItem.delete_items = DeleteItem.DeletedItem.select();
 
 def update_cost_and_profit(_item):
     _item.buyTotalCost = _item.buySingleCost * _item.number;
@@ -106,7 +69,6 @@ def add_new_item(ID=Lib.get_unique_ID(), date=Lib.get_current_date(), name="", n
         totalProfit=totalProfit, buyer=buyer, buyPlace=buyPlace, payCards=payCards,\
         ifDrop=ifDrop);
     update_cost_and_profit(new_item);
-    update_ID(new_item);
     new_item.save();
     update_all_items();
 
@@ -117,19 +79,11 @@ def get_items_time_range(_start=datetime.date(1,1,1), _end=Lib.get_current_date(
     ans = ans.where(Item.date <= _end);
     return ans;
 
+
 def get_item_by_ID(_ID):
     for x in Item.select():
         if x.uID == _ID:
             return x;
-
-def delete_all_saved_items():
-    for x in Item.select():
-        x.delete_instance();
-
-def delete_all_deleted_items():
-    for x in deletedItem.select():
-        x.delete_instance();
-
 
 def delete_item_by_ID(_id):
     entries = Item.select().where(Item.uID == _id);
@@ -138,13 +92,16 @@ def delete_item_by_ID(_id):
         entry.delete_instance();
     update_all_items();
 
+def delete_all_saved_items():
+    for x in Item.select():
+        x.delete_instance();
 
 def add_deleted_item(_id):
     print(_id);
-    all_deleted_items = Item.select().where(Item.uID == _id);
+    deleted_items = Item.select().where(Item.uID == _id);
     print('/n')
-    for newitem in all_deleted_items:
-        new_deleted_item = deletedItem(uID=newitem.uID, date=newitem.date, name=newitem.name,\
+    for newitem in deleted_items:
+        new_deleted_item = DeleteItem.DeletedItem(uID=newitem.uID, date=newitem.date, name=newitem.name,\
             number=newitem.number, buySingleCost=newitem.buySingleCost, buyTotalCost=newitem.buyTotalCost,\
             sellSignlePrice=newitem.sellSignlePrice, sellTotalPrice=newitem.sellTotalPrice,\
             receivedMoney=newitem.receivedMoney, receivedNum=newitem.receivedNum, otherCost=newitem.otherCost,\
@@ -154,16 +111,3 @@ def add_deleted_item(_id):
         update_cost_and_profit(new_deleted_item);
         new_deleted_item.save();
 
-
-
-
-# def print_all_items():
-    # pass
-    # all_items = Item.select();
-    # for x in all_items:
-    #     print (x.uID, x.buySingleCost, x.sellSignlePrice);
-
-# if __name__ == '__main__':
-#     init_database();
-#     input_new_item();
-#     print_all_items();

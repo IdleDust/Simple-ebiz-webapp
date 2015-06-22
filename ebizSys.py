@@ -4,17 +4,17 @@ from flask import (Flask, render_template, redirect,
     url_for, request,  make_response, flash)
 import json
 import Lib
-import Models
+from Tables import *
 
 
 app = Flask(__name__);
 
 
 @app.route('/')
-def index(saves="", date=Lib.get_current_date(), all_items=Models.Item.select(),\
+def index(saves="", date=Lib.get_current_date(), all_items=Item.Item.select(),\
     st_date=Lib.get_current_date(), ed_date=Lib.get_current_date()):
     return render_template("index.html", saves=saves, date=date, \
-        all_items=Models.all_items, st_date=st_date, ed_date=ed_date);
+        all_items=Item.all_items, st_date=st_date, ed_date=ed_date);
 
 @app.route('/', methods=['POST'])
 def selected_items(saves=""):
@@ -24,7 +24,7 @@ def selected_items(saves=""):
     st = data['start_date']
     ed = data['end_date']
     
-    selected_items=Models.get_items_time_range(st, ed)
+    selected_items = Item.get_items_time_range(st, ed)
     return render_template("index.html", date=Lib.get_current_date(),all_items=selected_items)
     # response = make_response(redirect(url_for('index')));, saves=saves, date=Lib.get_cur
     # response.set_cookie('character', json.dumps(data));
@@ -32,7 +32,7 @@ def selected_items(saves=""):
 
 @app.route('/add_item')
 def add_item():
-    return render_template("add_item.html", all_items=Models.all_items);
+    return render_template("add_item.html", all_items=Item.all_items);
 
 def get_saved_data():
     try:
@@ -45,7 +45,7 @@ def get_saved_data():
 def save_new_item():
     data = {};
     data.update(dict(request.form.items()));
-    Models.add_new_item(name=data['name'], number=Lib.toInt(data['num']), \
+    Item.add_new_item(name=data['name'], number=Lib.toInt(data['num']), \
         buySingleCost=Lib.toFloat(data['buySingleCost']),\
         sellSignlePrice=Lib.toFloat(data['sellSignlePrice']),\
          otherCost=Lib.toFloat(data['otherCost']),\
@@ -60,14 +60,14 @@ def save_new_item():
 def delete_item():
     data = {};
     data.update(dict(request.form.items()));
-    Models.delete_item_by_ID(Lib.toInt(data['delete']));
+    Item.delete_item_by_ID(Lib.toInt(data['delete']));
     response = make_response(redirect(url_for('index')));
     # response.set_cookie('character', json.dumps(data));
     return response;
 
 @app.route('/show_deleted_item', methods=['get'])
 def show_deleted_item():
-    deleted_items = Models.deleted_items;
+    deleted_items = DeleteItem.all_deleted_items;
     return render_template("deletedItems.html", all_items=deleted_items);
 
 
@@ -83,7 +83,7 @@ def jump_revise_item():
 @app.route('/revise_item/<int:uID>')
 @app.route('/revise_item')
 def revise_item(uID):
-    item = Models.get_item_by_ID(uID);
+    item = Item.get_item_by_ID(uID);
     ######################################testing#######
     # item.print_item()
     return render_template("revise_item.html", item=item);
@@ -93,7 +93,7 @@ def save_revise_item():
     data = {};
     data.update(dict(request.form.items()));
     uID = Lib.toInt(data['uID']);
-    for x in Models.all_items:
+    for x in Item.all_items:
         if x.uID == uID:
             x.name = data['name'];
             x.date = Lib.str_to_date(data['date']);
@@ -108,7 +108,7 @@ def save_revise_item():
             x.ifDrop = data['ifDrop'];
             x.buyPlace = data['buyPlace'];
             x.payCards = data['payCards'];
-            Models.update_cost_and_profit(x);
+            Item.update_cost_and_profit(x);
             x.save();
 
 
@@ -117,8 +117,10 @@ def save_revise_item():
     # response.set_cookie('character', json.dumps(data));
     return response;
 
-if __name__ == '__main__':
-    Models.init_database();
+def main():
+    init_all_tables();
     app.run(debug=True, host='127.0.0.1', port=8000);
 
+if __name__ == '__main__':
+    main();
         

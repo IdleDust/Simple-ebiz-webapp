@@ -2,7 +2,7 @@ import datetime
 from peewee import *
 import Lib
 from MyDatabase import *
-import DeleteItem
+import DeletedItem
 
 all_items = [];
 
@@ -49,7 +49,7 @@ class Item(Model):
 def update_all_items():
     global all_items;
     all_items = Item.select();
-    DeleteItem.delete_items = DeleteItem.DeletedItem.select();
+    DeletedItem.all_deleted_items = DeletedItem.DeletedItem.select();
 
 def update_cost_and_profit(_item):
     _item.buyTotalCost = _item.buySingleCost * _item.number;
@@ -57,17 +57,20 @@ def update_cost_and_profit(_item):
     _item.basicProfit = _item.sellTotalPrice - _item.buyTotalCost;
     _item.totalProfit = _item.basicProfit + _item.otherProfit - _item.otherCost;
 
-def add_new_item(ID=Lib.get_unique_ID(), date=Lib.get_current_date(), name="", number=0, buySingleCost=0, buyTotalCost=0, \
+def add_new_item(uID=0, name="", number=0, buySingleCost=0, buyTotalCost=0, \
     receivedNum=0, sellSignlePrice=0, sellTotalPrice = 0, receivedMoney=0, \
     otherCost=0, basicProfit=0, otherProfit=0, totalProfit=0, buyer="virus",\
      buyPlace="newegg", payCards="", ifDrop=False):
-    new_item = Item(uID=ID, date=date, name=name, number=number, buySingleCost=buySingleCost,\
+    new_item = Item(uID=uID, date=Lib.get_current_date(), name=name, number=number, buySingleCost=buySingleCost,\
         buyTotalCost = buyTotalCost, \
         sellSignlePrice=sellSignlePrice, sellTotalPrice=sellTotalPrice,\
         receivedMoney=receivedMoney, receivedNum=receivedNum, otherCost=otherCost,\
         basicProfit=basicProfit, otherProfit=otherProfit,\
         totalProfit=totalProfit, buyer=buyer, buyPlace=buyPlace, payCards=payCards,\
         ifDrop=ifDrop);
+
+    if new_item.uID == 0:
+    	new_item.uID = Lib.get_unique_ID();
     update_cost_and_profit(new_item);
     new_item.save();
     update_all_items();
@@ -97,11 +100,9 @@ def delete_all_saved_items():
         x.delete_instance();
 
 def add_deleted_item(_id):
-    print(_id);
     deleted_items = Item.select().where(Item.uID == _id);
-    print('/n')
     for newitem in deleted_items:
-        new_deleted_item = DeleteItem.DeletedItem(uID=newitem.uID, date=newitem.date, name=newitem.name,\
+        new_deleted_item = DeletedItem.DeletedItem(uID=newitem.uID, date=newitem.date, name=newitem.name,\
             number=newitem.number, buySingleCost=newitem.buySingleCost, buyTotalCost=newitem.buyTotalCost,\
             sellSignlePrice=newitem.sellSignlePrice, sellTotalPrice=newitem.sellTotalPrice,\
             receivedMoney=newitem.receivedMoney, receivedNum=newitem.receivedNum, otherCost=newitem.otherCost,\
@@ -111,3 +112,6 @@ def add_deleted_item(_id):
         update_cost_and_profit(new_deleted_item);
         new_deleted_item.save();
 
+def copy_a_deleted_item(_deletedItem):
+	'''return a Item the same as the _deletedItem'''
+	add_new_item(uID=_deletedItem.uID);

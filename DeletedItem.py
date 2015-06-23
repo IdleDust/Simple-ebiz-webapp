@@ -29,7 +29,7 @@ class DeletedItem(Model):
         database = db;
 
 def delete_all_deleted_items():
-    for x in deletedItem.select():
+    for x in DeletedItem.select():
         x.delete_instance();
 
 if __name__ == '__main__':

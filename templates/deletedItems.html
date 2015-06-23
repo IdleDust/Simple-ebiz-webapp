@@ -34,8 +34,8 @@
 				</tr>
 				{% for x in all_items %}
 				<tr>
-					<td><form action="#" method="POST"><button class="recover_item" id="recover-{{ x.uID }}-btn" 
-					value="{{ x.uID }}" name="recover">Recover</button></form></td>
+					<td><form action="{{ url_for('recover') }}" method="POST"><button class="recover_item" id="recover-{{ x.uID }}-btn" 
+					value="{{ x.uID }}" name="uID">Recover</button></form></td>
 
 					<td>{{ x.uID }}</td>
 					<td>{{ x.date.month }}/{{ x.date.day }}/{{ x.date.year }}</td>

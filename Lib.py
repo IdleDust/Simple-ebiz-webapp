@@ -1,5 +1,6 @@
 
 import datetime, time
+import math
 
 def get_current_date():
 	x = datetime.datetime.now();
@@ -24,9 +25,10 @@ def toFloat(x):
 		return 0;
 
 def get_cur_time_stamp():
-	return toInt(time.time()*100);
+	print(time.time()*100);
+	return toInt(math.ceil(time.time()*100));
 
 def get_unique_ID():
 	return get_cur_time_stamp();
 
-	
+

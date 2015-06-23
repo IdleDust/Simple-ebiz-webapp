@@ -30,6 +30,22 @@ def selected_items(saves=""):
     # response.set_cookie('character', json.dumps(data));
     # return response;
 
+@app.route('/recover', methods=['POST'])
+def recover():
+    data = {};
+    data.update(dict(request.form.items()));
+    print(data['uID']);
+    uID = Lib.toInt(data['uID']);
+    tmp = DeletedItem.DeletedItem.select().where(DeletedItem.DeletedItem.uID == uID);
+    for x in tmp:
+        Item.copy_a_deleted_item(x);
+        x.delete_instance();
+    Item.update_all_items();
+    response = make_response(redirect(url_for('index')));
+    # response.set_cookie('character', json.dumps(data));
+    return response;
+
+
 @app.route('/add_item')
 def add_item():
     return render_template("add_item.html", all_items=Item.all_items);
@@ -67,7 +83,7 @@ def delete_item():
 
 @app.route('/show_deleted_item', methods=['get'])
 def show_deleted_item():
-    deleted_items = DeleteItem.all_deleted_items;
+    deleted_items = DeletedItem.all_deleted_items;
     return render_template("deletedItems.html", all_items=deleted_items);
 
 
@@ -119,6 +135,8 @@ def save_revise_item():
 
 def main():
     init_all_tables();
+    #########################################
+    #########################################
     app.run(debug=True, host='127.0.0.1', port=8000);
 
 if __name__ == '__main__':

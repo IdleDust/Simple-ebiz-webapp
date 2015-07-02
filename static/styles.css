@@ -51,22 +51,20 @@ h2{
 
 
 /**********************All purchased Items table******************/
-table, th, td {
-    border: 1.2px solid black;
+table, th, tr, td{
+    border: 1.8px solid black;
     border-collapse: collapse;
-}
-th, td {
     padding: 3px;
 }
 
-th{
-	margin: 2px 0px;
+th {
 	text-align: left;
-	font-style: bold;
+	font-size: 18px;
+	font-weight: bold;
 }
 caption{
 	text-align: left;
-	font-size:20;
+	font-size:20px;
 	margin:5px 0px;
 	font-weight:bold;
 }

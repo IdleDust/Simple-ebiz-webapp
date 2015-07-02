@@ -13,8 +13,10 @@ app = Flask(__name__);
 @app.route('/')
 def index(saves="", date=Lib.get_current_date(), all_items=Item.Item.select(),\
     st_date=Lib.get_current_date(), ed_date=Lib.get_current_date()):
+    all_items = Item.all_items;
+    sumItem = Item.summary_item(all_items);
     return render_template("index.html", saves=saves, date=date, \
-        all_items=Item.all_items, st_date=st_date, ed_date=ed_date);
+        all_items=Item.all_items, st_date=st_date, ed_date=ed_date, sumItem=sumItem);
 
 @app.route('/', methods=['POST'])
 def selected_items(saves=""):
@@ -25,7 +27,8 @@ def selected_items(saves=""):
     ed = data['end_date']
     
     selected_items = Item.get_items_time_range(st, ed)
-    return render_template("index.html", date=Lib.get_current_date(),all_items=selected_items)
+    sumItem = Item.summary_item(selected_items);
+    return render_template("index.html", date=Lib.get_current_date(),all_items=selected_items, sumItem=sumItem);
     # response = make_response(redirect(url_for('index')));, saves=saves, date=Lib.get_cur
     # response.set_cookie('character', json.dumps(data));
     # return response;

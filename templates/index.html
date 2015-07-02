@@ -31,7 +31,7 @@
 					<input class="add_button" type='submit' value='Add a New Item'>
 				</form>
 			</div>
-			<table border="1" id = "all_items_table">
+			<table id = "all_items_table">
 				<caption>All Purchased Items</caption>
 				<tr>
 					<th></th>
@@ -84,6 +84,25 @@
 					<td>{{ x.ifDrop }}</td>
 				</tr>
 				{% endfor %}
+				<!-- <-summary item-> -->
+				<tr>
+					<th align="center" colspan=2>Summary</td>
+					<td> </td>
+					<td> </td>
+					<td> </td>
+					<td> </td>
+					<td> </td>
+					<td>{{ sumItem['sumBuyTotalCost'] }}</td>
+					<td> </td>
+					<td> </td>
+					<td>{{ sumItem['sumSellTotalPrice'] }}</td>
+					<td style="background-color:red">{{ sumItem['sumReceivedMoney'] }}</td>
+                    <td>{{ sumItem['sumOtherCost'] }}</td>
+                    <td>{{ sumItem['sumBasicProfit'] }}</td>
+                    <td>{{ sumItem['sumOtherProfit'] }}</td>
+                    <td>{{ sumItem['sumTotalProfit'] }}</td>
+                    <td> </td><td> </td><td> </td><td> </td>
+				</tr>
 			</table>
 		</div>
 	</body>

@@ -88,6 +88,8 @@ def get_item_by_ID(_ID):
         if x.uID == _ID:
             return x;
 
+
+
 def delete_item_by_ID(_id):
     entries = Item.select().where(Item.uID == _id);
     for entry in entries:
@@ -115,3 +117,27 @@ def add_deleted_item(_id):
 def copy_a_deleted_item(_deletedItem):
 	'''return a Item the same as the _deletedItem'''
 	add_new_item(uID=_deletedItem.uID);
+# '''
+#     items sum row
+# '''
+
+def summary_item(_items):
+    sumItem = {};
+    sumItem['sumBuyTotalCost'] = 0;
+    sumItem['sumSellTotalPrice'] = 0;
+    sumItem['sumReceivedMoney'] = 0;
+    sumItem['sumOtherCost'] = 0;
+    sumItem['sumBasicProfit'] = 0;
+    sumItem['sumOtherProfit'] = 0;
+    sumItem['sumTotalProfit'] = 0;
+    for x in _items:
+        sumItem['sumBuyTotalCost'] += x.buyTotalCost;
+        sumItem['sumSellTotalPrice'] += x.sellTotalPrice;
+        sumItem['sumOtherCost'] += x.otherCost;
+        sumItem['sumBasicProfit'] += x.basicProfit;
+        sumItem['sumOtherProfit'] += x.otherProfit;
+        sumItem['sumTotalProfit'] += x.totalProfit;
+        sumItem['sumReceivedMoney'] += x.receivedMoney;
+    return sumItem;
+
+

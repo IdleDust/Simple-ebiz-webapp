@@ -5,6 +5,7 @@ from MyDatabase import *
 import DeletedItem
 
 all_items = [];
+item_list = [];
 
 class Item(Model):
     uID = IntegerField(unique=True);
@@ -130,14 +131,27 @@ def summary_item(_items):
     sumItem['sumBasicProfit'] = 0;
     sumItem['sumOtherProfit'] = 0;
     sumItem['sumTotalProfit'] = 0;
-    for x in _items:
-        sumItem['sumBuyTotalCost'] += x.buyTotalCost;
-        sumItem['sumSellTotalPrice'] += x.sellTotalPrice;
-        sumItem['sumOtherCost'] += x.otherCost;
-        sumItem['sumBasicProfit'] += x.basicProfit;
-        sumItem['sumOtherProfit'] += x.otherProfit;
-        sumItem['sumTotalProfit'] += x.totalProfit;
-        sumItem['sumReceivedMoney'] += x.receivedMoney;
+    if (_items):
+        for x in _items:
+            sumItem['sumBuyTotalCost'] += x.buyTotalCost;
+            sumItem['sumSellTotalPrice'] += x.sellTotalPrice;
+            sumItem['sumOtherCost'] += x.otherCost;
+            sumItem['sumBasicProfit'] += x.basicProfit;
+            sumItem['sumOtherProfit'] += x.otherProfit;
+            sumItem['sumTotalProfit'] += x.totalProfit;
+            sumItem['sumReceivedMoney'] += x.receivedMoney;
     return sumItem;
 
+def get_items_by_keyword(_keyword):
+    del item_list[:];
+    for x in all_items:
+        itemstring = "";
+        itemstring += x.name.strip().lower();
+        itemstring += x.buyer.strip().lower();
+        itemstring += x.buyPlace.strip().lower();
+        itemstring += x.payCards.strip().lower();
+        if _keyword in itemstring:
+            item_list.append(x);
+    return item_list;
+    
 

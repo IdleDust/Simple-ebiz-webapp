@@ -10,12 +10,11 @@
 		<h1>eBiz Accounting System</h1>
 
 		<form action="{{url_for('index')}}" method="get">
-				<input type="submit" class="show_all_btn" value="Show All Items">
+			<input type="submit" class="show_all_btn" value="Show All Items">
 		</form>
 		<form action="{{url_for('show_deleted_item')}}" method="get">
-				<input type="submit" class="show_deleted_btn" value="Show Deleted Items">
+			<input type="submit" class="show_deleted_btn" value="Show Deleted Items">
 		</form>
-
 		<div id="select_time_range">
 			<form action="{{ url_for('selected_items') }}" method="POST">
 				<br><label>Select Date Range:</label><br>
@@ -23,7 +22,12 @@
 				To: <input type="date" name="end_date" value="{{ed_date}}">
 				<input class="submit_button" type="submit" value="Submit">
 			</form>
-			
+		</div>
+		<div id="search_by_keyword">
+			<form action="{{url_for('search_by_keyword')}}" method="POST">
+				<input type="text" name="keyword">
+				<input type="submit" value="Search">
+			</form>
 		</div>
 		<div id="show_items">
 			<div id="add_item">
@@ -34,22 +38,22 @@
 			<table id = "all_items_table">
 				<caption>All Purchased Items</caption>
 				<tr>
-					<th></th>
-					<th></th>
-					<th>ID</th>
-					<th>Date</th>
-					<th>Name</th>
-					<th>Num</th>
-					<th>buySingleCost</th>
-					<th>buyTotalCost</th>
-					<th>receivedNum</th>
-					<th>sellSignlePrice</th>
-					<th>sellTotalPrice</th>
-					<th>receivedMoney</th>
-					<th>otherCost</th>
-					<th>basicProfit</th>
-					<th>otherProfit</th>
-					<th>totalProfit</th>
+					<th class="th1"></th>
+					<th class="th1"></th>
+					<th class="th1">ID</th>
+					<th class="th1">Date</th>
+					<th class="th2">Name</th>
+					<th class="th1">Num</th>
+					<th class="th3">buy SingleCost</th>
+					<th class="th3">buy TotalCost</th>
+					<th>received Num</th>
+					<th>sell SignlePrice</th>
+					<th>sell TotalPrice</th>
+					<th>received Money</th>
+					<th>other Cost</th>
+					<th>basic Profit</th>
+					<th>other Profit</th>
+					<th>total Profit</th>
 					<th>buyer</th>
 					<th>buyPlace</th>
 					<th>payCards</th>

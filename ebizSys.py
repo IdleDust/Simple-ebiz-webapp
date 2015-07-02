@@ -26,12 +26,28 @@ def selected_items(saves=""):
     st = data['start_date']
     ed = data['end_date']
     
-    selected_items = Item.get_items_time_range(st, ed)
-    sumItem = Item.summary_item(selected_items);
-    return render_template("index.html", date=Lib.get_current_date(),all_items=selected_items, sumItem=sumItem);
+    selected_items = Item.get_items_time_range(st, ed);
+    sumdic = Item.summary_item(selected_items);
+    return render_template("index.html", all_items=selected_items, sumItem=sumdic);
     # response = make_response(redirect(url_for('index')));, saves=saves, date=Lib.get_cur
     # response.set_cookie('character', json.dumps(data));
     # return response;
+
+@app.route('/search_by_keyword', methods=['POST'])
+def search_by_keyword():
+    data = {};
+    data.update(dict(request.form.items()));
+    for x in data.items():
+        print(x);
+    keyword = data['keyword'].strip().lower();
+    all_items = Item.Item.select();
+    sumdic = Item.summary_item(all_items);
+    if (keyword != ""):
+        all_items = Item.get_items_by_keyword(keyword);
+        sumdic = Item.summary_item(all_items);
+    return render_template("index.html", all_items=all_items, sumItem=sumdic);
+
+
 
 @app.route('/recover', methods=['POST'])
 def recover():
@@ -129,9 +145,6 @@ def save_revise_item():
             x.payCards = data['payCards'];
             Item.update_cost_and_profit(x);
             x.save();
-
-
-
     response = make_response(redirect(url_for('index')));
     # response.set_cookie('character', json.dumps(data));
     return response;

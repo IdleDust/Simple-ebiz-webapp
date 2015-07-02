@@ -49,22 +49,45 @@ h2{
 	margin-bottom: 5px;
 }
 
+#search_by_keyword {
+	margin-top: 15px;
+	margin-bottom: 0px;
+}
 
 /**********************All purchased Items table******************/
+table {
+	table-layout: fixed;
+}
+
 table, th, tr, td{
     border: 1.8px solid black;
     border-collapse: collapse;
     padding: 3px;
 }
 
+
 th {
 	text-align: left;
 	font-size: 18px;
 	font-weight: bold;
 }
-caption{
+
+caption {
 	text-align: left;
 	font-size:20px;
 	margin:5px 0px;
 	font-weight:bold;
+}
+.th1 {
+	width:50px;
+}
+
+.th2 {
+	width:200px;
+	word-break:keep-all;
+}
+
+.th3 {
+	column-width:initial;
+	word-break: keep-all;
 }

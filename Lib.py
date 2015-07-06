@@ -25,7 +25,10 @@ def toFloat(x):
 		return 0;
 
 def toDecimal(x):
-	return round(x,1);
+	try:
+		return round(x,1);
+	except:
+		return 0;
 
 def get_cur_time_stamp():
 	x = toInt(math.ceil(time.time()*100));

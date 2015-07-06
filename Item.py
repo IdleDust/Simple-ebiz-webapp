@@ -58,10 +58,11 @@ def update_cost_and_profit(_item):
     _item.basicProfit = Lib.toDecimal(_item.sellTotalPrice - _item.buyTotalCost);
     _item.totalProfit = Lib.toDecimal(_item.basicProfit + _item.otherProfit - _item.otherCost);
 
-def add_new_item(uID=0, date=Lib.get_current_date(), name="", number=0, buySingleCost=0, buyTotalCost=0, \
-    receivedNum=0, sellSignlePrice=0, sellTotalPrice = 0, receivedMoney=0, \
-    otherCost=0, basicProfit=0, otherProfit=0, totalProfit=0, buyer="",\
-     buyPlace="", payCards="", ifDrop=None):
+def add_new_item(uID=0, date=Lib.get_current_date(), name="", number=0, \
+                buySingleCost=0, buyTotalCost=0, \
+                receivedNum=0, sellSignlePrice=0, sellTotalPrice=0, receivedMoney=0, \
+                otherCost=0, basicProfit=0, otherProfit=0, totalProfit=0, buyer="",\
+                 buyPlace="", payCards="", ifDrop=None):
     new_item = Item(uID=uID, date=date, name=name, number=number, buySingleCost=Lib.toDecimal(buySingleCost),\
         buyTotalCost = Lib.toDecimal(buyTotalCost), \
         sellSignlePrice=Lib.toDecimal(sellSignlePrice), sellTotalPrice=sellTotalPrice,\

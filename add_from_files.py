@@ -40,9 +40,11 @@ def process_file(file_name):
 
 def process_all_files():
 	info=os.getcwd();
-	listfile=os.listdir(os.getcwd());
+	listfile=os.listdir(info);
+	print(listfile);
 	for i in range(len(listfile)):
 		if listfile[i][-4:] == 'xlsx':
+			print(listfile[i]);
 			process_file(listfile[i]);
 
 

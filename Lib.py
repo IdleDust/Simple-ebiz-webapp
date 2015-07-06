@@ -31,4 +31,24 @@ def get_cur_time_stamp():
 def get_unique_ID():
 	return get_cur_time_stamp();
 
+def max_common_substr_len(x, y):
+	lx = len(x);
+	ly = len(y);
+	if lx == 0 or ly == 0:
+		return 0;
+	c = [[0 for j in range(ly+2)] for i in range(lx+2)];
+	for i in range(1,lx+1):
+		for j in range(1,ly+1):
+			if x[i-1] == y[j-1]:
+			    c[i][j] = c[i-1][j-1] + 1;
+			else:
+			    c[i][j] = max(c[i-1][j], c[i][j-1]);
+	return c[lx][ly];
+
+
+
+
+
+
+
 

@@ -133,12 +133,12 @@ def save_revise_item():
             x.name = data['name'];
             x.date = Lib.str_to_date(data['date']);
             x.number = Lib.toInt(data['num']);
-            x.buySingleCost = Lib.toFloat(data['buySingleCost']);
+            x.buySingleCost = Lib.toDecimal(Lib.toFloat(data['buySingleCost']));
             x.receivedNum = Lib.toInt(data['receivedNum']);
-            x.sellSignlePrice = Lib.toFloat(data['sellSignlePrice']);
-            x.receivedMoney = Lib.toFloat(data['receivedMoney']);
-            x.otherCost = Lib.toFloat(data['otherCost']);
-            x.otherProfit = Lib.toFloat(data['otherProfit']);
+            x.sellSignlePrice = Lib.toDecimal(Lib.toFloat(data['sellSignlePrice']));
+            x.receivedMoney = Lib.toDecimal(Lib.toFloat(data['receivedMoney']));
+            x.otherCost = Lib.toDecimal(Lib.toFloat(data['otherCost']));
+            x.otherProfit = Lib.toDecimal(Lib.toFloat(data['otherProfit']));
             x.buyer = data['buyer'];
             x.ifDrop = data['ifDrop'];
             x.buyPlace = data['buyPlace'];

@@ -53,21 +53,21 @@ def update_all_items():
     DeletedItem.all_deleted_items = DeletedItem.DeletedItem.select();
 
 def update_cost_and_profit(_item):
-    _item.buyTotalCost = _item.buySingleCost * _item.number;
-    _item.sellTotalPrice = _item.sellSignlePrice * _item.number;
-    _item.basicProfit = _item.sellTotalPrice - _item.buyTotalCost;
-    _item.totalProfit = _item.basicProfit + _item.otherProfit - _item.otherCost;
+    _item.buyTotalCost = Lib.toDecimal(_item.buySingleCost * _item.number);
+    _item.sellTotalPrice = Lib.toDecimal(_item.sellSignlePrice * _item.number);
+    _item.basicProfit = Lib.toDecimal(_item.sellTotalPrice - _item.buyTotalCost);
+    _item.totalProfit = Lib.toDecimal(_item.basicProfit + _item.otherProfit - _item.otherCost);
 
 def add_new_item(uID=0, date=Lib.get_current_date(), name="", number=0, buySingleCost=0, buyTotalCost=0, \
     receivedNum=0, sellSignlePrice=0, sellTotalPrice = 0, receivedMoney=0, \
-    otherCost=0, basicProfit=0, otherProfit=0, totalProfit=0, buyer="virus",\
-     buyPlace="newegg", payCards="", ifDrop=False):
-    new_item = Item(uID=uID, date=date, name=name, number=number, buySingleCost=buySingleCost,\
-        buyTotalCost = buyTotalCost, \
-        sellSignlePrice=sellSignlePrice, sellTotalPrice=sellTotalPrice,\
-        receivedMoney=receivedMoney, receivedNum=receivedNum, otherCost=otherCost,\
-        basicProfit=basicProfit, otherProfit=otherProfit,\
-        totalProfit=totalProfit, buyer=buyer, buyPlace=buyPlace, payCards=payCards,\
+    otherCost=0, basicProfit=0, otherProfit=0, totalProfit=0, buyer="",\
+     buyPlace="", payCards="", ifDrop=None):
+    new_item = Item(uID=uID, date=date, name=name, number=number, buySingleCost=Lib.toDecimal(buySingleCost),\
+        buyTotalCost = Lib.toDecimal(buyTotalCost), \
+        sellSignlePrice=Lib.toDecimal(sellSignlePrice), sellTotalPrice=sellTotalPrice,\
+        receivedMoney=Lib.toDecimal(receivedMoney), receivedNum=receivedNum, otherCost=Lib.toDecimal(otherCost),\
+        basicProfit=Lib.toDecimal(basicProfit), otherProfit=Lib.toDecimal(otherProfit),\
+        totalProfit=Lib.toDecimal(totalProfit), buyer=buyer, buyPlace=buyPlace, payCards=payCards,\
         ifDrop=ifDrop);
 
     if new_item.uID == 0:
@@ -88,8 +88,6 @@ def get_item_by_ID(_ID):
     for x in Item.select():
         if x.uID == _ID:
             return x;
-
-
 
 def delete_item_by_ID(_id):
     entries = Item.select().where(Item.uID == _id);
@@ -117,10 +115,23 @@ def add_deleted_item(_id):
 
 def copy_a_deleted_item(_deletedItem):
 	'''return a Item the same as the _deletedItem'''
-	add_new_item(uID=_deletedItem.uID);
-# '''
-#     items sum row
-# '''
+	add_new_item(uID=_deletedItem.uID,\
+                date=_deletedItem.date, number=_deletedItem.number, name=_deletedItem.name,\
+                buySingleCost=_deletedItem.buySingleCost,\
+                receivedNum=_deletedItem.receivedNum,\
+                sellSignlePrice=_deletedItem.sellSignlePrice,\
+                receivedMoney=_deletedItem.receivedMoney,\
+                otherCost=_deletedItem.otherCost,\
+                basicProfit=_deletedItem.basicProfit,\
+                otherProfit=_deletedItem.otherProfit,\
+                totalProfit=_deletedItem.totalProfit,\
+                buyer=_deletedItem.buyer,\
+                buyPlace=_deletedItem.buyPlace,\
+                payCards=_deletedItem.payCards,\
+                ifDrop=_deletedItem.ifDrop);
+# -------------------------
+#     items summary row
+# --------------------------
 
 def summary_item(_items):
     sumItem = {};
@@ -140,6 +151,13 @@ def summary_item(_items):
             sumItem['sumOtherProfit'] += x.otherProfit;
             sumItem['sumTotalProfit'] += x.totalProfit;
             sumItem['sumReceivedMoney'] += x.receivedMoney;
+    sumItem['sumBuyTotalCost'] = Lib.toDecimal(sumItem['sumBuyTotalCost']);
+    sumItem['sumSellTotalPrice'] = Lib.toDecimal(sumItem['sumSellTotalPrice'] );
+    sumItem['sumReceivedMoney'] = Lib.toDecimal(sumItem['sumReceivedMoney']);
+    sumItem['sumOtherCost'] = Lib.toDecimal(sumItem['sumOtherCost']);
+    sumItem['sumBasicProfit'] = Lib.toDecimal(sumItem['sumBasicProfit']);
+    sumItem['sumOtherProfit'] = Lib.toDecimal(sumItem['sumOtherProfit']);
+    sumItem['sumTotalProfit'] = Lib.toDecimal(sumItem['sumTotalProfit']);
     return sumItem;
 
 def get_items_by_keyword(_keyword):

@@ -1,6 +1,6 @@
 
 import datetime, time
-import math
+import math, random
 
 def get_current_date():
 	x = datetime.datetime.now();
@@ -24,9 +24,19 @@ def toFloat(x):
 	except ValueError:
 		return 0;
 
+def toDecimal(x):
+	return round(x,1);
+
 def get_cur_time_stamp():
-	print(time.time()*100);
-	return toInt(math.ceil(time.time()*100));
+	x = toInt(math.ceil(time.time()*100));
+	left = str(x)[-5:];
+	right = str(get_random_number());
+	res = toInt(left + right);
+	return res;
+
+def get_random_number():
+	return random.randint(10000, 99999);
+
 
 def get_unique_ID():
 	return get_cur_time_stamp();
@@ -44,8 +54,6 @@ def max_common_substr_len(x, y):
 			else:
 			    c[i][j] = max(c[i-1][j], c[i][j-1]);
 	return c[lx][ly];
-
-
 
 
 

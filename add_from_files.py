@@ -5,7 +5,6 @@ import datetime, time
 import Lib
 import os
 
-file_name = "06-15-eBiz.xlsx"
 
 def process_file(file_name):
 	# data = xlrd.open_workbook('06-15-eBiz.xlsx');
@@ -13,8 +12,6 @@ def process_file(file_name):
 	table = data.sheets()[0];
 	nrow = table.nrows;
 	for i in range(1,nrow):
-		for j in range(1, 2000000):
-			pass;
 		rowlist = table.row_values(i);
 		# for j in range(len(rowlist)):
 		# 	print ("{}:{}".format(j,rowlist[j]));
@@ -44,7 +41,10 @@ def process_file(file_name):
 def process_all_files():
 	info=os.getcwd();
 	listfile=os.listdir(os.getcwd());
-	print(listfile);
+	for i in range(len(listfile)):
+		if listfile[i][-4:] == 'xlsx':
+			process_file(listfile[i]);
+
 
 if __name__ == '__main__':
 	process_all_files();

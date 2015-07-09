@@ -29,6 +29,7 @@ class Item(Model):
 
     class Meta:
         database = db;
+        order_by = ('-date',);
 
     def print_item(self):
         info = dict()
@@ -62,7 +63,7 @@ def add_new_item(uID=0, date=Lib.get_current_date(), name="", number=0, \
                 buySingleCost=0, buyTotalCost=0, \
                 receivedNum=0, sellSignlePrice=0, sellTotalPrice=0, receivedMoney=0, \
                 otherCost=0, basicProfit=0, otherProfit=0, totalProfit=0, buyer="",\
-                 buyPlace="", payCards="", ifDrop=None):
+                 buyPlace="", payCards="", ifDrop=False):
     new_item = Item(uID=uID, date=date, name=name, number=number, buySingleCost=Lib.toDecimal(buySingleCost),\
         buyTotalCost = Lib.toDecimal(buyTotalCost), \
         sellSignlePrice=Lib.toDecimal(sellSignlePrice), sellTotalPrice=sellTotalPrice,\

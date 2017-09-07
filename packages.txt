@@ -1,0 +1,12 @@
+Packages needed:
+
+1 python 3
+2 flask
+3 peewee (sqlite)
+
+Others:
+templates 
+html5
+css
+jQuery
+
